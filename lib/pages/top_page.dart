@@ -1,4 +1,5 @@
 import 'package:chat_app/model/user.dart';
+import 'package:chat_app/pages/settings_profile.dart';
 import 'package:chat_app/pages/talk_room.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +22,23 @@ class _TopPageState extends State<TopPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.orange,
-        title: Text('トーク', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.green,
+        title: Text('Talk', style: TextStyle(color: Colors.black)),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SettingsProfilePage()));
+            },
+            icon: Icon(
+              Icons.edit,
+              color: Colors.black,
+              size: 30,
+            ),
+          )
+        ],
       ),
       body: ListView.builder(
           itemCount: userList.length,

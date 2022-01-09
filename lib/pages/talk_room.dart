@@ -87,9 +87,11 @@ class _TalkRoomState extends State<TalkRoom> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white70,
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Colors.black,
+                            color: Colors.blueAccent,
                           ),
                         ),
                       ),

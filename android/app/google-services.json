@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "199559156418",
+    "project_id": "chat-91778",
+    "storage_bucket": "chat-91778.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:199559156418:android:1ce89164b3c6afa6b6e15b",
+        "android_client_info": {
+          "package_name": "com.tomohiro.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "199559156418-42dnv3gl70dbgrcm18m1968233m9ffgc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDizkqLdes_TQdUIWi7BzwpIVdxP4KPqCY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "199559156418-42dnv3gl70dbgrcm18m1968233m9ffgc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
