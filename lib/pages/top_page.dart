@@ -12,10 +12,8 @@ class TopPage extends StatefulWidget {
 
 class _TopPageState extends State<TopPage> {
   List<User> userList = [
-    User(
-        'エレン', 'abc', 'https://pbs.twimg.com/media/EtsT0zYVgAIIu1Y.jpg', 'hey'),
-    User('メッシ', 'def', 'https://www.crank-in.net/img/db/1369427_1200.jpg',
-        'apple'),
+    User('エレン', 'abc', 'https://pbs.twimg.com/media/EtsT0zYVgAIIu1Y.jpg'),
+    User('メッシ', 'def', 'https://www.crank-in.net/img/db/1369427_1200.jpg'),
   ];
 
   @override
@@ -72,7 +70,7 @@ class _TopPageState extends State<TopPage> {
                         ),
                         SizedBox(width: 20),
                         Text(
-                          userList[index].lastMessage,
+                          'q',
                           style: TextStyle(color: Colors.grey),
                         ),
                       ],

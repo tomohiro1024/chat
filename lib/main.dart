@@ -8,7 +8,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await SharedPrefs.setInstance();
-  Firestore.addUser();
+  String? uid = SharedPrefs.getUid();
+  if (uid == '') Firestore.addUser();
   runApp(MyApp());
 }
 
