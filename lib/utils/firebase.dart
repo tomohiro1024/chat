@@ -1,11 +1,8 @@
+import 'package:chat_app/utils/shared_prefs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Firestore {
   static FirebaseFirestore _firestoreInstance = FirebaseFirestore.instance;
-  // // collectionの共通化
-  // static final userRef = _firestoreInstance.collection('user');
-  // // チャットルームの共通化
-  // static final roomRef = _firestoreInstance.collection('room');
 
   static Future<void> addUser() async {
     try {
@@ -13,7 +10,13 @@ class Firestore {
         'name': 'NoName',
         'image_path': 'https://pbs.twimg.com/media/EtsT0zYVgAIIu1Y.jpg'
       });
-      print('完了');
+      print('アカウント作成完了');
+      print(newDoc.id);
+
+      // アカウントが作成完了したらSharedPrefs(端末)にnewDocに入ってきたIDを保存する。
+      await SharedPrefs.setUid(newDoc.id);
+      String? uid = SharedPrefs.getUid();
+      print(uid);
 
       // チャットルームの作成
       // getUser()で作成されたユーザーのIDを入れる。
