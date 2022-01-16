@@ -66,11 +66,12 @@ class Firestore {
     final snapshot = await _firestoreInstance.collection('room').get();
     List<TalkRoom> roomList = [];
     // 自分のUidの選別
-    snapshot.docs.forEach((doc) async {
+    await Future.forEach(snapshot.docs, (DocumentSnapshot doc) async {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
       // 自分のUidかどうかのチェック
-      if (doc.data()['joined_user_ids'].contains(myUid)) {
+      if (data['joined_user_ids'].contains(myUid)) {
         String? yourUid;
-        doc.data()['joined_user_ids'].forEach((id) {
+        data['joined_user_ids'].forEach((id) {
           if (id != myUid) {
             yourUid = id;
             return;
@@ -79,10 +80,11 @@ class Firestore {
         // 相手のプロフィール情報の取得
         User? yourProfile = await getProfile(yourUid!);
         TalkRoom room =
-            TalkRoom(doc.id, yourProfile!, doc.data()['lastMessage'] ?? '');
+            TalkRoom(doc.id, yourProfile!, data['lastMessage'] ?? '');
         roomList.add(room);
       }
     });
+    print(roomList.length);
 
     return roomList;
   }
