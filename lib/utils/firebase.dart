@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Firestore {
   static FirebaseFirestore _firestoreInstance = FirebaseFirestore.instance;
+  // collection('room')に何かしら値が追加された場合、画面を更新する。
+  static final roomSnapshot = _firestoreInstance.collection('room').snapshots();
 
   static Future<void> addUser() async {
     try {
@@ -56,8 +58,8 @@ class Firestore {
   // 自分のFirestoreのプロフィール情報を取得
   static Future<User?> getProfile(String uid) async {
     final profile = await _firestoreInstance.collection('user').doc(uid).get();
-    User myProfile =
-        User(profile.data()!['name'], uid, profile.data()!['mage_path']);
+    Map<String, dynamic> data = profile.data() as Map<String, dynamic>;
+    User myProfile = User(data['name'], uid, data['image_path']);
     return myProfile;
   }
 
