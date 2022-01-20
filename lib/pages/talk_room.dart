@@ -47,20 +47,29 @@ class _TalkRoomPageState extends State<TalkRoomPage> {
                           ? TextDirection.ltr
                           : TextDirection.rtl,
                       children: [
-                        Container(
-                            // コメントの幅を6割程度にする。（コメントが長すぎたら改行する）
-                            constraints: BoxConstraints(
-                                maxWidth:
-                                    MediaQuery.of(context).size.width * 0.6),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 6.0),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: messageList[index].isMe
-                                  ? Colors.greenAccent
-                                  : Colors.yellow,
-                            ),
-                            child: Text(messageList[index].message)),
+                        Column(
+                          children: [
+                            Container(
+                                // コメントの幅を6割程度にする。（コメントが長すぎたら改行する）
+                                constraints: BoxConstraints(
+                                    maxWidth:
+                                        MediaQuery.of(context).size.width *
+                                            0.6),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10.0, vertical: 6.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: messageList[index].isMe
+                                      ? Colors.greenAccent
+                                      : Colors.yellow,
+                                ),
+                                child: Text(messageList[index].message)),
+                            // 0120仮で書いたコード
+                            Text(messageList[index].isMe
+                                ? widget.talkUser.name
+                                : ''),
+                          ],
+                        ),
                         Opacity(
                           opacity: 0.6,
                           child: Text(

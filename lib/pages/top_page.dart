@@ -63,6 +63,7 @@ class _TopPageState extends State<TopPage> {
                           // InkWellはchildの中身を押下できるようにするウィジェット
                           return InkWell(
                             onTap: () {
+                              print(talkUserList![index].roomId);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

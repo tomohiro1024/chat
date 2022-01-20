@@ -1,3 +1,4 @@
+import 'package:chat_app/model/message.dart';
 import 'package:chat_app/model/talk_room.dart';
 import 'package:chat_app/model/user.dart';
 import 'package:chat_app/utils/shared_prefs.dart';
@@ -90,4 +91,7 @@ class Firestore {
 
     return roomList;
   }
+
+  // メッセージの取得
+  static Future<List<Message>>? getMessages(String roomId) {}
 }
