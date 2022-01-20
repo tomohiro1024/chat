@@ -1,18 +1,19 @@
 import 'package:chat_app/model/message.dart';
+import 'package:chat_app/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
-class TalkRoom extends StatefulWidget {
-  // トップページから名前を受け取る変数
-  final String name;
-  TalkRoom(this.name);
+class TalkRoomPage extends StatefulWidget {
+  // トップページからユーザーを受け取る変数
+  final User talkUser;
+  TalkRoomPage(this.talkUser);
   //const TalkRoom({Key? key}) : super(key: key);
 
   @override
-  _TalkRoomState createState() => _TalkRoomState();
+  _TalkRoomPageState createState() => _TalkRoomPageState();
 }
 
-class _TalkRoomState extends State<TalkRoom> {
+class _TalkRoomPageState extends State<TalkRoomPage> {
   List<Message> messageList = [
     Message('Hello', true, DateTime(2022, 1, 1, 10, 20)),
     Message('안녕하세요ああああああああああああいいいいいいいいいいいいいいいいいいいいいいい', false,
@@ -24,7 +25,8 @@ class _TalkRoomState extends State<TalkRoom> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.orange,
-        title: Text(widget.name, style: TextStyle(color: Colors.black)),
+        title:
+            Text(widget.talkUser.name, style: TextStyle(color: Colors.black)),
       ),
       body: Stack(
         children: [

@@ -79,7 +79,7 @@ class Firestore {
             return;
           }
         });
-        // 相手のプロフィール情報の取得
+        // プロフィール情報の取得
         User? yourProfile = await getProfile(yourUid!);
         TalkRoom room =
             TalkRoom(doc.id, yourProfile!, data['lastMessage'] ?? '');
