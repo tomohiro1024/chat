@@ -67,8 +67,8 @@ class _TopPageState extends State<TopPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => TalkRoomPage(
-                                          talkUserList![index].talkUser)));
+                                      builder: (context) =>
+                                          TalkRoomPage(talkUserList![index])));
                             },
                             child: Container(
                               height: 90,

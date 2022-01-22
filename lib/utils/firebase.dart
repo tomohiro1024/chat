@@ -93,5 +93,48 @@ class Firestore {
   }
 
   // メッセージの取得
-  static Future<List<Message>>? getMessages(String roomId) {}
+  static Future<List<Message>?> getMessages(String roomId) async {
+    final messageRef =
+        _firestoreInstance.collection('room').doc(roomId).collection('message');
+    List<Message> messageList = [];
+    final snapshot = await messageRef.get();
+    await Future.forEach(snapshot.docs, (DocumentSnapshot doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      // 自分のuidかどうかの判定処理
+      bool isMe;
+      String? myUid = SharedPrefs.getUid();
+      if (data['sender_id'] == myUid) {
+        isMe = true;
+      } else {
+        isMe = false;
+      }
+      Message message = Message(data['message'], isMe, data['send_time']);
+      messageList.add(message);
+    });
+    // メッセージの時間によって並べ変える
+    messageList.sort((a, b) => b.sendTime.compareTo(a.sendTime));
+    return messageList;
+  }
+
+  static Future<void>? sendMessage(String roomId, String message) async {
+    // Firestoreの'room'のdocにあるIDのコレクションにある'message'にアクセス
+    final messageRef =
+        _firestoreInstance.collection('room').doc(roomId).collection('message');
+    // 自分のuidを取得
+    String? myUid = SharedPrefs.getUid();
+    await messageRef.add({
+      'message': message,
+      'sender_id': myUid,
+      'send_time': Timestamp.now(),
+    });
+  }
+
+  static Stream<QuerySnapshot>? messageSnapshot(String roomId) {
+    // コレクションのmessageに何かしら値が入ってきた場合、画面を更新する。
+    return _firestoreInstance
+        .collection('room')
+        .doc(roomId)
+        .collection('message')
+        .snapshots();
+  }
 }
