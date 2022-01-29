@@ -40,6 +40,7 @@ class Firestore {
     }
   }
 
+  // firestoreにあるユーザーの情報をとってくる
   static Future<List<String>?> getUser() async {
     try {
       final snapshot = await _firestoreInstance.collection('user').get();
@@ -58,6 +59,7 @@ class Firestore {
 
   // 自分のFirestoreのプロフィール情報を取得
   static Future<User?> getProfile(String uid) async {
+    // 特定のuidを取得したい場合は.doc(uid)と記載する
     final profile = await _firestoreInstance.collection('user').doc(uid).get();
     Map<String, dynamic> data = profile.data() as Map<String, dynamic>;
     User myProfile = User(data['name'], uid, data['image_path']);
@@ -80,7 +82,7 @@ class Firestore {
             return;
           }
         });
-        // プロフィール情報の取得
+        // 相手のプロフィール情報の取得
         User? yourProfile = await getProfile(yourUid!);
         TalkRoom room =
             TalkRoom(doc.id, yourProfile!, data['lastMessage'] ?? '');
@@ -111,7 +113,7 @@ class Firestore {
       Message message = Message(data['message'], isMe, data['send_time']);
       messageList.add(message);
     });
-    // メッセージの時間によって並べ変える
+    // メッセージを時間によって並べ変える
     messageList.sort((a, b) => b.sendTime.compareTo(a.sendTime));
     return messageList;
   }

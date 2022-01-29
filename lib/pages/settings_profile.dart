@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SettingsProfilePage extends StatefulWidget {
   const SettingsProfilePage({Key? key}) : super(key: key);
@@ -8,6 +11,21 @@ class SettingsProfilePage extends StatefulWidget {
 }
 
 class _SettingsProfilePageState extends State<SettingsProfilePage> {
+  File? image;
+  // ImagePickerのインスタンス
+  ImagePicker picker = ImagePicker();
+
+  Future<void>? getImageFromGallery() async {
+    // スマホの写真フォルダから写真を選択する
+    final pickerFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickerFile != null) {
+      // 取得してきた写真をimageに入れる
+      image = File(pickerFile.path);
+      // 写真を表示する
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +74,9 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
                       width: 110,
                       height: 35,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          getImageFromGallery();
+                        },
                         child: Text('画像を選択'),
                         style: ElevatedButton.styleFrom(primary: Colors.black),
                       ),
@@ -64,7 +84,19 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
                   ),
                 )
               ],
-            )
+            ),
+            SizedBox(height: 20),
+            // 画像が選択されていなかった場合、何も表示しない
+            image == null
+                ? Container()
+                : Container(
+                    width: 200,
+                    height: 200,
+                    child: Image.file(
+                      image!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
           ],
         ),
       ),

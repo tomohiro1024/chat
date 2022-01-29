@@ -55,7 +55,7 @@ class _TopPageState extends State<TopPage> {
             return FutureBuilder(
                 future: createRooms(),
                 builder: (context, snapshot) {
-                  // この処理が干渉した場合、ifの中身を表示し、elseでは処理が完了するまではグルグルを表示する
+                  // この処理が完了した場合、ifの中身を表示し、elseでは処理が完了するまではグルグルを表示する
                   if (snapshot.connectionState == ConnectionState.done) {
                     return ListView.builder(
                         itemCount: talkUserList?.length,
