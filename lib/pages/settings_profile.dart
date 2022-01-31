@@ -88,7 +88,9 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
             SizedBox(height: 20),
             // 画像が選択されていなかった場合、何も表示しない
             image == null
-                ? Container()
+                ? Container(
+                    child: Icon(Icons.favorite),
+                  )
                 : Container(
                     width: 200,
                     height: 200,
