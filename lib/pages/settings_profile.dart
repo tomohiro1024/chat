@@ -69,7 +69,7 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
                 Container(width: 100, child: Text('Thumbnail')),
                 Expanded(
                   child: Container(
-                    alignment: Alignment.center,
+                    alignment: Alignment.topLeft,
                     child: Container(
                       width: 110,
                       height: 35,
@@ -85,10 +85,12 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
                 )
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 50),
             // 画像が選択されていなかった場合、何も表示しない
             image == null
                 ? Container(
+                    width: 200,
+                    height: 200,
                     child: Icon(Icons.favorite),
                   )
                 : Container(
@@ -96,7 +98,7 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
                     height: 200,
                     child: Image.file(
                       image!,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
           ],
