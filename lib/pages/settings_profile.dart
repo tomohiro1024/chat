@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -15,15 +16,24 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
   // ImagePickerのインスタンス
   ImagePicker picker = ImagePicker();
 
+  String? imagePath;
+
   Future<void>? getImageFromGallery() async {
     // スマホの写真フォルダから写真を選択する
     final pickerFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickerFile != null) {
       // 取得してきた写真をimageに入れる
       image = File(pickerFile.path);
+      uploadImage();
       // 写真を表示する
       setState(() {});
     }
+  }
+
+  // 写真をStorageにアップロードする
+  Future<String?> uploadImage() async {
+    final ref = FirebaseStorage.instance.ref('test.png');
+    final storedImage = await ref.putFile(image!);
   }
 
   @override
