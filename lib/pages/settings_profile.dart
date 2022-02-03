@@ -32,8 +32,16 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
 
   // 写真をStorageにアップロードする
   Future<String?> uploadImage() async {
-    final ref = FirebaseStorage.instance.ref('test.png');
+    final ref = FirebaseStorage.instance.ref('testq.png');
     final storedImage = await ref.putFile(image!);
+    imagePath = await loadImage(storedImage);
+    return imagePath;
+  }
+
+  // 画像のURLの取得
+  Future<String?> loadImage(TaskSnapshot storedImage) async {
+    String downloadUrl = await storedImage.ref.getDownloadURL();
+    return downloadUrl;
   }
 
   @override
