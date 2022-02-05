@@ -66,6 +66,15 @@ class Firestore {
     return myProfile;
   }
 
+  // 自分のプロフィールを編集する
+  static Future<void> updeteProfile(User newProfile) async {
+    String? myUid = SharedPrefs.getUid();
+    _firestoreInstance.collection('user').doc(myUid).update({
+      'name': newProfile.name,
+      'image_path': newProfile.imagePath,
+    });
+  }
+
   // トークルームの取得
   static Future<List<TalkRoom>?> getRooms(String myUid) async {
     final snapshot = await _firestoreInstance.collection('room').get();
