@@ -52,7 +52,7 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ProFile'),
+        title: Text('プロフィール編集'),
         backgroundColor: Colors.black,
       ),
       body: Padding(
@@ -69,6 +69,7 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
                     child: Container(
                       height: 40,
                       child: TextField(
+                        controller: controller,
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white70,
@@ -135,6 +136,20 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
               onPressed: () {
                 User newProfile = User(controller.text, '', imagePath!);
                 Firestore.updeteProfile(newProfile);
+                if (controller.text == '') {
+                  final snackBar = SnackBar(
+                    backgroundColor: Colors.red,
+                    content: Text('名前もしくは画像を選択してください'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                } else {
+                  final snackBar = SnackBar(
+                    backgroundColor: Colors.green,
+                    content: Text('編集しました'),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+
                 print(controller.text);
               },
               child: Text('Edit'),

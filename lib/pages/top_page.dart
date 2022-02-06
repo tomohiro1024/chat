@@ -78,7 +78,9 @@ class _TopPageState extends State<TopPage> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: CircleAvatar(
                                       backgroundImage: NetworkImage(
-                                          'https://pbs.twimg.com/media/EtsT0zYVgAIIu1Y.jpg'),
+                                          talkUserList![index]
+                                              .talkUser
+                                              .imagePath),
                                       radius: 40,
                                     ),
                                   ),
@@ -91,10 +93,6 @@ class _TopPageState extends State<TopPage> {
                                             fontWeight: FontWeight.w500),
                                       ),
                                       SizedBox(width: 20),
-                                      Text(
-                                        'q',
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
                                     ],
                                   ),
                                 ],

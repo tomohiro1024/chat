@@ -84,9 +84,12 @@ class _TalkRoomPageState extends State<TalkRoomPage> {
                                             child: Text(
                                                 messageList![index].message)),
                                         // 0120仮で書いたコード
-                                        Text(messageList![index].isMe
-                                            ? widget.room.talkUser.name
-                                            : ''),
+                                        Text(
+                                          messageList![index].isMe
+                                              ? ''
+                                              : widget.room.talkUser.name,
+                                          style: TextStyle(fontSize: 10),
+                                        ),
                                       ],
                                     ),
                                     Opacity(
