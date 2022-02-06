@@ -69,7 +69,7 @@ class Firestore {
   // 自分のプロフィールを編集する
   static Future<void> updeteProfile(User newProfile) async {
     String? myUid = SharedPrefs.getUid();
-    _firestoreInstance.collection('user').doc(myUid).update({
+    await _firestoreInstance.collection('user').doc(myUid).update({
       'name': newProfile.name,
       'image_path': newProfile.imagePath,
     });

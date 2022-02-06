@@ -28,7 +28,7 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
     if (pickerFile != null) {
       // 取得してきた写真をimageに入れる
       image = File(pickerFile.path);
-      uploadImage();
+      await uploadImage();
       // 写真を表示する
       setState(() {});
     }
@@ -67,10 +67,15 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
                       child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      height: 40,
+                      height: 36,
                       child: TextField(
                         controller: controller,
                         decoration: InputDecoration(
+                          hintText: '名前を入力して下さい',
+                          hintStyle: TextStyle(
+                            color: Colors.grey[500],
+                            fontSize: 12,
+                          ),
                           filled: true,
                           fillColor: Colors.white70,
                           enabledBorder: OutlineInputBorder(
@@ -97,8 +102,8 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
                       width: 110,
                       height: 35,
                       child: ElevatedButton(
-                        onPressed: () {
-                          getImageFromGallery();
+                        onPressed: () async {
+                          await getImageFromGallery();
                         },
                         child: Text('画像を選択'),
                         style: ElevatedButton.styleFrom(primary: Colors.black),
@@ -111,15 +116,7 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
             SizedBox(height: 20),
             // 画像が選択されていなかった場合、何も表示しない
             image == null
-                ? Container(
-                    width: 100,
-                    height: 100,
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://pbs.twimg.com/media/EtsT0zYVgAIIu1Y.jpg'),
-                      radius: 40,
-                    ),
-                  )
+                ? Container()
                 : Container(
                     width: 100,
                     height: 100,
@@ -133,9 +130,12 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
               style: ElevatedButton.styleFrom(
                 primary: Colors.black, //ボタンの背景色
               ),
-              onPressed: () {
+              onPressed: () async {
+                //ここで画像アップロード処理
                 User newProfile = User(controller.text, '', imagePath!);
-                Firestore.updeteProfile(newProfile);
+                await Firestore.updeteProfile(newProfile);
+                print(controller.text);
+
                 if (controller.text == '') {
                   final snackBar = SnackBar(
                     backgroundColor: Colors.red,
@@ -149,8 +149,6 @@ class _SettingsProfilePageState extends State<SettingsProfilePage> {
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
-
-                print(controller.text);
               },
               child: Text('Edit'),
             )
